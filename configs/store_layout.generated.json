@@ -1,0 +1,205 @@
+{
+  "assumptions": [
+    "The original Brigade Road workbook contains an embedded visual floor plan rather than machine-readable polygons.",
+    "The new CCTV folders are treated as store-scoped inputs: Store 1 maps to STORE_BLR_002/ST1008 and Store 2 maps to STORE_MUM_1076/ST1076.",
+    "Normalized polygons are production-safe defaults and should be calibrated from camera screenshots before live deployment.",
+    "Store 1 camera roles come from the updated filenames: CAM 1/2 zone, CAM 3 entry, CAM 5 billing.",
+    "Store 2 camera roles come from the updated filenames: entry 1/2, zone, billing_area."
+  ],
+  "resource_discovery": {
+    "layout_files": [
+      "resources/Brigade Road - Store layout.xlsx",
+      "datasets/cctv_footage/Store 1/Store 1 - layout.png",
+      "datasets/cctv_footage/Store 2/store 2 - layout.png"
+    ],
+    "pos_files": [
+      "resources/Brigade_Bangalore_10_April_26.csv",
+      "resources/POS - sample transactions.csv"
+    ],
+    "sample_event_files": [
+      "resources/sample_eventsbe42122.jsonl"
+    ]
+  },
+  "store_id": "STORE_BLR_002",
+  "store_name": "Brigade Road",
+  "aliases": [
+    "ST1008",
+    "Brigade_Bangalore",
+    "Store 1",
+    "store_1"
+  ],
+  "open_hours": {
+    "start": "10:00",
+    "end": "22:00",
+    "timezone": "Asia/Kolkata"
+  },
+  "zones": [
+    {
+      "zone_id": "ENTRY_THRESHOLD",
+      "sku_zone": null,
+      "polygon": [[0.0, 0.0], [1.0, 0.0], [1.0, 0.25], [0.0, 0.25]]
+    },
+    {
+      "zone_id": "SKINCARE",
+      "sku_zone": "SKINCARE",
+      "polygon": [[0.05, 0.28], [0.48, 0.28], [0.48, 0.7], [0.05, 0.7]]
+    },
+    {
+      "zone_id": "MAKEUP",
+      "sku_zone": "MAKEUP",
+      "polygon": [[0.52, 0.28], [0.96, 0.28], [0.96, 0.7], [0.52, 0.7]]
+    },
+    {
+      "zone_id": "BILLING",
+      "sku_zone": "BILLING",
+      "polygon": [[0.55, 0.72], [0.98, 0.72], [0.98, 0.98], [0.55, 0.98]]
+    }
+  ],
+  "cameras": [
+    {
+      "camera_id": "STORE_BLR_002_CAM_ZONE_01",
+      "camera_type": "MAIN_FLOOR",
+      "source_hint": "CAM 1 - zone.mp4"
+    },
+    {
+      "camera_id": "STORE_BLR_002_CAM_ZONE_02",
+      "camera_type": "MAIN_FLOOR",
+      "source_hint": "CAM 2 - zone.mp4"
+    },
+    {
+      "camera_id": "STORE_BLR_002_CAM_ENTRY_01",
+      "camera_type": "ENTRY",
+      "entry_line": [[0.08, 0.55], [0.92, 0.55]],
+      "inbound_side": "above_to_below",
+      "source_hint": "CAM 3 - entry.mp4"
+    },
+    {
+      "camera_id": "STORE_BLR_002_CAM_BILLING_01",
+      "camera_type": "BILLING",
+      "source_hint": "CAM 5 - billing.mp4"
+    }
+  ],
+  "stores": [
+    {
+      "store_id": "STORE_BLR_002",
+      "store_name": "Brigade Road",
+      "aliases": ["ST1008", "Brigade_Bangalore", "Store 1", "store_1"],
+      "source_folder": "Store 1",
+      "open_hours": {
+        "start": "10:00",
+        "end": "22:00",
+        "timezone": "Asia/Kolkata"
+      },
+      "zones": [
+        {
+          "zone_id": "ENTRY_THRESHOLD",
+          "sku_zone": null,
+          "polygon": [[0.0, 0.0], [1.0, 0.0], [1.0, 0.25], [0.0, 0.25]]
+        },
+        {
+          "zone_id": "SKINCARE",
+          "sku_zone": "SKINCARE",
+          "polygon": [[0.05, 0.28], [0.48, 0.28], [0.48, 0.7], [0.05, 0.7]]
+        },
+        {
+          "zone_id": "MAKEUP",
+          "sku_zone": "MAKEUP",
+          "polygon": [[0.52, 0.28], [0.96, 0.28], [0.96, 0.7], [0.52, 0.7]]
+        },
+        {
+          "zone_id": "BILLING",
+          "sku_zone": "BILLING",
+          "polygon": [[0.55, 0.72], [0.98, 0.72], [0.98, 0.98], [0.55, 0.98]]
+        }
+      ],
+      "cameras": [
+        {
+          "camera_id": "STORE_BLR_002_CAM_ZONE_01",
+          "camera_type": "MAIN_FLOOR",
+          "source_hint": "CAM 1 - zone.mp4"
+        },
+        {
+          "camera_id": "STORE_BLR_002_CAM_ZONE_02",
+          "camera_type": "MAIN_FLOOR",
+          "source_hint": "CAM 2 - zone.mp4"
+        },
+        {
+          "camera_id": "STORE_BLR_002_CAM_ENTRY_01",
+          "camera_type": "ENTRY",
+          "entry_line": [[0.08, 0.55], [0.92, 0.55]],
+          "inbound_side": "above_to_below",
+          "source_hint": "CAM 3 - entry.mp4"
+        },
+        {
+          "camera_id": "STORE_BLR_002_CAM_BILLING_01",
+          "camera_type": "BILLING",
+          "source_hint": "CAM 5 - billing.mp4"
+        }
+      ]
+    },
+    {
+      "store_id": "STORE_MUM_1076",
+      "store_name": "Mumbai Store 1076",
+      "aliases": ["ST1076", "store_1076", "PURPLLE_MUM_1076", "Store 2", "store_2"],
+      "source_folder": "Store 2",
+      "open_hours": {
+        "start": "10:00",
+        "end": "22:00",
+        "timezone": "Asia/Kolkata"
+      },
+      "zones": [
+        {
+          "zone_id": "PURPLLE_MUM_1076_ENTRY",
+          "sku_zone": null,
+          "polygon": [[0.0, 0.0], [1.0, 0.0], [1.0, 0.22], [0.0, 0.22]]
+        },
+        {
+          "zone_id": "PURPLLE_MUM_1076_Z01",
+          "sku_zone": "SKINCARE",
+          "polygon": [[0.04, 0.24], [0.48, 0.24], [0.48, 0.68], [0.04, 0.68]]
+        },
+        {
+          "zone_id": "PURPLLE_MUM_1076_Z02",
+          "sku_zone": "MAKEUP",
+          "polygon": [[0.5, 0.24], [0.96, 0.24], [0.96, 0.68], [0.5, 0.68]]
+        },
+        {
+          "zone_id": "PURPLLE_MUM_1076_Z03",
+          "sku_zone": "FRAGRANCE",
+          "polygon": [[0.05, 0.69], [0.48, 0.69], [0.48, 0.96], [0.05, 0.96]]
+        },
+        {
+          "zone_id": "PURPLLE_MUM_1076_Z_BILLING_01",
+          "sku_zone": "BILLING",
+          "polygon": [[0.52, 0.7], [0.98, 0.7], [0.98, 0.98], [0.52, 0.98]]
+        }
+      ],
+      "cameras": [
+        {
+          "camera_id": "PURPLLE_MUM_1076_CAM_ENTRY_01",
+          "camera_type": "ENTRY",
+          "entry_line": [[0.08, 0.56], [0.92, 0.56]],
+          "inbound_side": "above_to_below",
+          "source_hint": "entry 1.mp4"
+        },
+        {
+          "camera_id": "PURPLLE_MUM_1076_CAM_ENTRY_02",
+          "camera_type": "ENTRY",
+          "entry_line": [[0.1, 0.56], [0.9, 0.56]],
+          "inbound_side": "above_to_below",
+          "source_hint": "entry 2.mp4"
+        },
+        {
+          "camera_id": "PURPLLE_MUM_1076_CAM_ZONE_01",
+          "camera_type": "MAIN_FLOOR",
+          "source_hint": "zone.mp4"
+        },
+        {
+          "camera_id": "PURPLLE_MUM_1076_CAM_BILLING_01",
+          "camera_type": "BILLING",
+          "source_hint": "billing_area.mp4"
+        }
+      ]
+    }
+  ]
+}

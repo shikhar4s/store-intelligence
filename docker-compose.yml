@@ -1,0 +1,69 @@
+name: store-intelligence
+
+services:
+  api:
+    image: store-intelligence-api:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        INSTALL_CV: ${INSTALL_CV:-false}
+    init: true
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      STORE_DB_URL: sqlite:////data/store_intelligence.db
+      DEFAULT_STORE_ID: ${DEFAULT_STORE_ID:-STORE_BLR_002}
+      INGEST_BATCH_LIMIT: ${INGEST_BATCH_LIMIT:-500}
+      STALE_FEED_MINUTES: ${STALE_FEED_MINUTES:-10}
+      POS_CORRELATION_MINUTES: ${POS_CORRELATION_MINUTES:-5}
+      BILLING_ABANDON_MINUTES: ${BILLING_ABANDON_MINUTES:-5}
+      REENTRY_TTL_MINUTES: ${REENTRY_TTL_MINUTES:-30}
+      LAYOUT_CONFIG_PATH: /app/configs/store_layout.generated.json
+      ULTRALYTICS_CONFIG_DIR: /tmp/ultralytics
+      YOLO_CONFIG_DIR: /tmp/ultralytics
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - store_data:/data
+      - ./configs:/app/configs:ro
+      - ./datasets:/app/datasets:ro
+      - model_cache:/tmp/ultralytics
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).read()"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+  detector:
+    profiles: ["cv"]
+    image: store-intelligence-api:cv
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        INSTALL_CV: "true"
+    init: true
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      STORE_DB_URL: sqlite:////data/store_intelligence.db
+      DEFAULT_STORE_ID: ${DEFAULT_STORE_ID:-STORE_BLR_002}
+      LAYOUT_CONFIG_PATH: /app/configs/store_layout.generated.json
+      ULTRALYTICS_CONFIG_DIR: /tmp/ultralytics
+      YOLO_CONFIG_DIR: /tmp/ultralytics
+    user: "0:0"
+    volumes:
+      - store_data:/data
+      - ./configs:/app/configs:ro
+      - ./datasets:/app/datasets:ro
+      - ./outputs:/app/outputs
+      - model_cache:/tmp/ultralytics
+    command: ["python", "-m", "pipeline.detect", "--input", "datasets/cctv_footage", "--output", "outputs/events.jsonl"]
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  store_data:
+  model_cache:

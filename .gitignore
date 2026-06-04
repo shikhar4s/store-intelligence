@@ -1,0 +1,57 @@
+# Python/runtime
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local env and logs
+.env
+.env.*
+!.env.example
+*.log
+uvicorn*.log
+
+# Databases and generated state
+data/
+*.db
+*.db-shm
+*.db-wal
+outputs/
+*.jsonl
+.setup-cache/
+submission/
+
+# Raw/private challenge resources
+datasets/cctv_footage/
+resources/
+!datasets/
+!datasets/.gitkeep
+
+# Model weights and inference artifacts
+*.pt
+*.onnx
+*.engine
+*.torchscript
+runs/
+model_cache/
+ultralytics/
+.ultralytics/
+
+# Media artifacts
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.m4v
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

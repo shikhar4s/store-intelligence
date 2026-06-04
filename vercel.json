@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/index.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{.venv/**,__pycache__/**,.pytest_cache/**,.ultralytics/**,datasets/**,resources/**,outputs/**,data/**,submission/**,tests/**,*.pt,*.mp4,*.mov,*.mkv,*.avi,*.m4v,*.log,*.db,*.db-*}"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
+    }
+  ]
+}
